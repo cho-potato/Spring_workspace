@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReBoard">
+
+	<!-- 동물 올림픽의 category==team, rank==step -->
+	<select id="selectAll" resultType="ReBoard">
+		select * from reboard order by team desc, step asc
+	</select>
+
+	<select id="select" parameterType="int" resultType="ReBoard">
+		select * from reboard where reboard_idx=#{reboad_idx}
+	</select>
+
+	<!-- 원글 등록 -->
+	<!-- 하나의 insert문 내에서 nextval 호출을 여러 번 해도 오직 한 번만 증가한다 -->
+	<!-- 오라클은 시퀀스가 외부에 있기 때문에 가능한 것 / currval은 인서트가 된 이후에 사용가능한 것 -->
+	<insert id="insert" parameterType="ReBoard">
+		insert into reboard(reboard_idx, title, writer, content, team)
+		values(seq_reboard.nextval, #{title}, #{writer}, #{content}, seq_reboard.nextval)
+	</insert>
+	
+	<update id="update" parameterType="ReBoard">
+		update reboard set title=#{title}, writer=#{writer}, content=#{content}
+		where reboard_idx=#{reboard_idx} 
+	</update>
+	
+	<delete id="delete" parameterType="ReBoard">
+		delete from reboard where reboard_idx=#{reboard_idx}
+	</delete>
+
+	<!-- 답변 달기 (자리 확보 + 답변달기 ==  update + insert )-->
+	<!--  
+		(빈 자리 만들기==update) 기존 글 뒤집어서 자리를 확보한 다음 insert,
+		(빈 자리 만들고나서 or 빈 자리 필요없을 때 == insert) 
+	 -->
+	 	
+	 
+</mapper>

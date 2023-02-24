@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+
+	<!--application 내장객체에 전달할 초기화 파라미터-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!--<param-value>/WEB-INF/spring/root-context.xml</param-value>-->
+		<param-value>/WEB-INF/root-context.xml</param-value>
+	</context-param>
+	
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!--서버 가동 및 중지 이벤트를 처리하는 리스너-->
+	<listener>
+	
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	
+	<!--
+		<listener-class>com.edu.mv2.listener.ContextLorderListener</listener-class>
+	-->
+	</listener>
+
+
+	
+	
+	
+	<!--
+		클라이언트의 요청이 들어올때 지금까지는 서블릿이 제일 먼저 해당 요청을 받는 것처럼 보였지만 
+		사실 서블릿이 요청을 받기도 전에 먼저 관여할 수 있는 객체가 지원되는데, 이 객체를 가리켜 필터라 한다. 
+	-->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<!--param-name은 이미 정해진 이름이므로 바꾸면 안됨-->
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Processes application requests
+		개발자가 스프링빈 xml을 초기화 파라미터에 명시하지 않을 경우 디폴트 파일명이 지정된다.
+		즉 파일명의 명명규칙이 있다. 서블잇 이름 -servlet.xml
+		ex)dispatcher : WEB-INF/dispatcher-servlet.xml
+	 -->
+	
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 기존에 등록되어 있던 내용
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>-->
+		
+		<!--우리가 설정한 xml 읽어들이게 만들려고 등록함-->
+		<init-param>
+			<param-name>contextConfigLocation</param-name><!--이 이름은 고정되어있음-->
+			<param-value>WEB-INF/beanname.xml</param-value>
+		</init-param>
+		
+		<load-on-startup>1</load-on-startup><!--이 항목은 맨 아래에 있어야함-->
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/client/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--관리자 모드와 관련된 모든 요청을 처리하는 서블릿 매핑-->
+	<servlet>
+		<servlet-name>adminServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		
+		<!--우리가 설정한 xml 읽어들이게 만들려고 등록함-->
+		<init-param>
+			<param-name>contextConfigLocation</param-name><!--이 이름은 고정되어있음-->
+			<param-value>WEB-INF/admin-config.xml</param-value>
+		</init-param>
+		
+		<load-on-startup>1</load-on-startup><!--이 항목은 맨 아래에 있어야함-->
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>adminServlet</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>

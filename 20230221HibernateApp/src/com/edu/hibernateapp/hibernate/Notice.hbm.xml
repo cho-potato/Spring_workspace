@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+ <!-- <class name="어느 테이블을 어떤거랑 연동할건데" table=""></class> -->
+ <class name="com.edu.hibernateapp.hibernate.domain.Notice" table="Notice">
+ 	<!-- primaty key -->
+ 	<id name="notice_idx" type="int" column="notice_idx">
+ 		<generator class="native"></generator>
+ 	</id>
+ 	<!-- general column -->
+ 	<!-- <property name="자료형" type="타입" column="칼럼"></property> -->
+ 	<property name="title"		type="string"	column="title"></property>
+ 	<property name="writer"	type="string"	column="writer"></property>
+ 	<property name="content"	type="string"	column="content"></property>
+ 	<property name="regdate"	type="string"	column="regdate"></property>
+ 	<property name="hit" 		type="int"		column="hit"></property>
+	 <!-- 
+		쿼리문 없음(개발자는 객체만 다루면 됨)
+		DTO 하나를 대상으로 setter 값을 넣으면  DB에 들어감
+	-->
+ </class>
+</hibernate-mapping>

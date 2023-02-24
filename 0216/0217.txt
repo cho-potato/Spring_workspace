@@ -1,0 +1,230 @@
+[코드]
+day.98
+[정리할 내용]
+주제 : 
+1. 스프링이 지원하는 DB연동 기술
+Mybatis, Jdbc, Hibernate, JPA
+2. 응답정보 유형 : 
+jsp(ModelBAndView)-ViewResolver관여
+
+**ModelBAndView를 사용하면 ViewResolver가 자동으로 관여!!!
+데이터(@ResponseBody)
+
+1. 어제 내용 정리
+Controller-Service-galleryDAO -mybatis
+		photoDAO
+
+2
+window-preferences-Validation
+아래 3개 체크해제-> 속도 향상
+EnterpriseApplication validator 
+facelet
+html
+javascript
+
+3
+자바 ServletContext=안드로이드 activity
+
+4
+예외처리가 중요한 이유?
+트랜잭션이 작동하기 때문
+
+throw new FileUploadException("파일 저장 실패", e);
+일부로 일으킨 에러 
+
+throws FileUploadException 전달
+
+5
+photoDAO한테 일시켜서 insert 넣을때 필요한 매개변수들 어떻게 전달할지
+
+6
+@Qualifier("mybatisGalleryDAO")
+
+@Qualifier에 등록할때는 앞에 소문자로 등록해줘야함
+
+MybatisGalleryDAO를 @Repository로 등록해줄때 
+id는 자동으로 맨 첫글자가 소문자로 변환되어 등록되기 때문?
+
+간단하게 위와 같이 어노테이션과 식별할 빈의 이름을 넣어주면 끝입니다!
+
+빈의 이름은 등록 시 직접 지정해준게 아니라면 클래스의 이름의 첫 알파벳을 소문자로 변환한 것이 됩니다.
+
+7
+
+jsp를 원하는 페이지와(동기)
+순수한 데이터를 원하는 페이지를 분리(비동기) : @ResponseBody를 붙여 준다.
+
+@ResponseBody 붙이면 ModelAndView붙이면 안됨
+
+8
+//RestController일 경우, 모든 메서드에 @ResponseBody를 생략이 가능하다.
+@RestController
+
+9
+rest방식 
+서버가 보내주지않음
+java script로 보내야함 -> location href=~
+
+10. 다른 DB를 써보자
+controller-service-DAO-mybaits
+		*jdbc로 바꿔주면 됨
+
+11
+ <!--DB연동 기술 중 Spring JDBC 사용을 위한 설정-->	
+ <bean id="jdbcTemplate" 
+ class="org.springframework.jdbc.core.JdbcTemplate" 
+ p:dataSource-ref="dataSource"--이걸 넣는 순간 오라클용 jdbcTemplate이 됨
+ />
+
+12
+RowMapper : 인터페이스 
+
+query(sql, 바인드 변수, rowMapper);
+
+13
+@Controller VS @RestController
+
+14
+/비동기 목록 요청(순수한 데이터 요청) 처리(주요 클라이언트 : web-ajax)
+gson으로 데이터 넘기기
+
+ <dependency>
+ <groupId>com.google.code.gson</groupId>
+ <artifactId>gson</artifactId>
+ <version>2.8.9</version>
+ </dependency>
+
+15
+mapping jackson
+2.11.4
+
+ <dependency>
+  <groupId>com.fasterxml.jackson.core</groupId>
+  <artifactId>jackson-databind</artifactId>
+  <version>2.11.4</version>
+ </dependency>
+
+빈등록도 해줘야함
+
+servlet-context.xml
+	<!--jackson data binder 등록
+		json과 자바객체 사이의 자동 변환기(Converter)	
+	-->
+	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<beans:property name="messageConverters">
+			<beans:list value-type="java.util.ArrayList">
+				<beans:ref bean="mappingJackson2HttpMessageConverter"/>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<beans:property name="supportedMediaTypes">
+			<beans:value>application/json;charset=utf-8</beans:value>
+		</beans:property>
+	</beans:bean>
+
+단수, 복수 가리지 않고 String으로 바꿔줌
+(Gallery, GalleryList)
+16
+RestGalleryController
+: 그냥 뿌려주기만 하는 거라 4단계가 필요없음
+
+<안드로이드>
+17
+
+  메인쓰레드
+ 디자인 영역(화면)
+	|
+*handler : 중간자 역할 
+=개발자는 본인이 만든 쓰레드를 통해서 직접적으로 접근은 못하지만
+handler 에 순서대로 등록하여 메인쓰레드에 의뢰
+큐 구조 : 터널과 같이 선입선출, 입구 출구가 뚫려있다.
+ex) 문자 메세지
+	|
+	|
+new 쓰레드들은 디자인 영역을 건드릴수 없다
+
+18
+Bundle  : 
+19
+app : 0215 부정탐
+20
+BoardApp
+
+21
+create table notice(
+  notice_idx int primary key auto_increment
+, title varchar(20)
+, writer varchar(20)
+, content varchar(20)
+, regdate timestamp default now()
+, hit int default 0
+)default character set utf8;
+
+22
+
+CURL
+
+안드로이드 폼 만들기 전에 cmd 창에서 확인하기
+curl: try 'curl --help' for more information
+
+C:\Users\admin>curl --help
+Usage: curl [options...] <url>
+ -d, --data <data>          HTTP POST data
+ -f, --fail                 Fail fast with no output on HTTP errors
+ -h, --help <category>      Get help for commands
+ -i, --include              Include protocol response headers in the output
+ -o, --output <file>        Write to file instead of stdout
+ -O, --remote-name          Write output to a file named as the remote file
+ -s, --silent               Silent mode
+ -T, --upload-file <file>   Transfer local FILE to destination
+ -u, --user <user:password> Server user and password
+ -A, --user-agent <name>    Send User-Agent <name> to server
+ -v, --verbose              Make the operation more talkative
+ -V, --version              Show version number and quit
+
+This is not the full help, this menu is stripped into categories.
+Use "--help category" to get an overview of all categories.
+For all options use the manual or "--help all".
+
+C:\Users\admin>curl -X POST localhost:7777/rest/notice/regist -d "title=hi&writer=batman&content=no"
+test
+C:\Users\admin>
+
+23
+
+https:// 보안된 url
+안드로이드는 기본이 https:// 
+android:usesCleartextTraffic="true"를 추가해주면 
+http로 접속가능
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
