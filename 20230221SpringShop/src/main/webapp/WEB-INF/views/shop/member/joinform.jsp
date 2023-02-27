@@ -1,4 +1,3 @@
-<%@page import="com.jspshop.domain.Category"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
@@ -6,12 +5,12 @@
 <html lang="zxx">
 
 <head>
-	<%@ include file="/inc/header.jsp" %>
+	<%@ include file="../inc/header.jsp" %>
 </head>
 
 <body>
     <!-- Page Preloder -->
-		<%@ include file="/inc/preloader.jsp" %>		
+		<%@ include file="../inc/preloader.jsp" %>		
 
     <!-- Offcanvas Menu Begin -->
     	<!-- 
@@ -20,11 +19,11 @@
     		이때, java 에 대한 비전문가들은 java 코드를 이해할 수 없기때문에, 그들이 좀더 쉽게 다가갈수 있도록 태그를 지원해준다.
     		(결국, 협업때문이란 말) jsp:include page="/inc/main_navi.jsp"
     	-->
-    	<%@ include file="/inc/main_navi.jsp"%>
+    	<%@ include file="../inc/main_navi.jsp"%>
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-		<%@ include file="/inc/header_section.jsp" %>		
+		<%@ include file="../inc/header_section.jsp" %>		
     <!-- Header Section End -->
     <section>
     	<div class="container">
@@ -43,7 +42,6 @@
 					    <div class="form-group">
 					      <input type="text" class="form-control"  placeholder="Enter Email" name="email">
 					    </div>
-			
 					    <button type="button" class="btn btn-primary" id="bt_regist">가입</button>
 					 </form>
     			</div>
@@ -52,27 +50,36 @@
     </section>
     
 	<!-- Instagram Begin -->
-	 	<%@ include file="/inc/insta.jsp" %>		
+	 	<%@ include file="../inc/insta.jsp" %>		
 	<!-- Instagram End -->
 	
 	<!-- Footer Section Begin -->
-	 	<%@ include file="/inc/footer.jsp" %>		
+	 	<%@ include file="../inc/footer.jsp" %>		
 	<!-- Footer Section End -->
 	
 	<!-- Search Begin -->
-	 	<%@ include file="/inc/search.jsp" %>		
+	 	<%@ include file="../inc/search.jsp" %>		
 	<!-- Search End -->
 	
 	<!-- Js Plugins -->
-	 	<%@ include file="/inc/footer_link.jsp" %>		
+	 	<%@ include file="../inc/footer_link.jsp" %>		
 		
 <script type="text/javascript">
 function regist(){
-	$("#form1").attr({
-		action:"/member/join.jsp",
-		method:"post"
+	let formData = $("#form1").serialize(); // 쿼리스트링으로 변환
+	// 비동기 요청
+	$.ajax({
+		url:"/rest/member",
+		type:"POST",
+		data:formData,
+		success:function(result, status, xhr) {
+			alert(result.msg);
+		},
+		error:function(xhr, status, err){
+			let json = JSON.parse(xhr.responseText);
+			alert(json.msg);
+		}
 	});
-	$("#form1").submit();
 }
 
 $(function(){
