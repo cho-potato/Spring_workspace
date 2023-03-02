@@ -24,22 +24,23 @@ public class MybatisMemberDAO implements MemberDAO {
 
 	public void insert(Member member) throws MemberException {
 		int result = sqlSessionTemplate.insert("Member.insert", member);
+		result=0;
 		if(result < 1) {
-			throw new MemberException("등록실패");
+			throw new MemberException("Member insert : 등록실패");
 		}
 	}
 
 	public void update(Member member) throws MemberException {
 		int result = sqlSessionTemplate.update("Member.update", member);
 		if(result < 1) {
-			throw new MemberException("수정실패");
+			throw new MemberException("Member update : 수정실패");
 		}
 	}
 
 	public void delete(Member member) throws MemberException {
 		int result = sqlSessionTemplate.delete("Member.delete", member);
 		if(result < 1) {
-			throw new MemberException("삭제실패");
+			throw new MemberException("Member delete : 삭제실패");
 		}
 	}
 }

@@ -42,7 +42,8 @@
 					    <div class="form-group">
 					      <input type="text" class="form-control"  placeholder="Enter Email" name="email">
 					    </div>
-					    <button type="button" class="btn btn-primary" id="bt_regist">가입</button>
+					    <button type="button" class="btn btn-primary" id="bt_registasync">비동기 가입</button>
+					    <button type="button" class="btn btn-primary" id="bt_regist">동기 가입</button>
 					 </form>
     			</div>
     		</div>
@@ -65,32 +66,41 @@
 	 	<%@ include file="../inc/footer_link.jsp" %>		
 		
 <script type="text/javascript">
-function regist(){
-	let formData = $("#form1").serialize(); // 쿼리스트링으로 변환
-	// 비동기 요청
-	$.ajax({
-		url:"/rest/member",
-		type:"POST",
-		data:formData,
-		success:function(result, status, xhr) {
-			alert(result.msg);
-		},
-		error:function(xhr, status, err){
-			let json = JSON.parse(xhr.responseText);
-			alert(json.msg);
-		}
+	// 비동기
+	function registAsync(){
+		let formData = $("#form1").serialize(); // 쿼리스트링으로 변환
+		// 비동기 요청
+		$.ajax({
+			url:"/rest/member",
+			type:"POST",
+			data:formData,
+			success:function(result, status, xhr) {
+				alert(result.msg);
+			},
+			error:function(xhr, status, err){
+				let json = JSON.parse(xhr.responseText);
+				alert(json.msg);
+			}
+		});
+	}
+	
+	// 동기
+	function regist() {
+		$("#form1").attr({
+			action:"/member/regist",
+			method:"POST"
+		});
+		$("#form1").submit();
+	}
+	
+	$(function(){
+		$("#bt_registasync").click(function(){
+			registAsync();
+		});
+		$("#bt_regist").click(function(){
+			regist();
+		});
 	});
-}
-
-$(function(){
-	$("#bt_regist").click(function(){
-		regist();
-	});
-});
-
-
 </script>
-		
 </body>
-
 </html>

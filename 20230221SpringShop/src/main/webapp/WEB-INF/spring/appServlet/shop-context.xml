@@ -55,4 +55,13 @@
 		</aop:aspect>
 	</aop:config>	
 	
+	<!-- Rest 요청에 대한 글로벌 예외를 처리할 빈 등록 ( JSON 등의 데이터로 결과를 보여주는 예외 객체 ) -->
+	 <beans:bean
+	 	id="restShopGlobalException"
+	 	class="com.edu.springshop.aop.RestShopGlobalException"/>
+	 	
+	 <!-- JSP로 결과를 보여주는 글로벌 예외 등록 -->
+	 <beans:bean
+		 id="shopGlobalException"
+		 class="com.edu.springshop.aop.ShopGlobalException"/>
 </beans:beans>

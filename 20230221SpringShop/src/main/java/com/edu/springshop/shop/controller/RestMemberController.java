@@ -1,5 +1,7 @@
 package com.edu.springshop.shop.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,23 +26,23 @@ public class RestMemberController {
 	
 	// 회원가입 요청처리
 	@PostMapping("/member")
-	public ResponseEntity<Message> regist(Member member) {
+	public ResponseEntity<Message> regist(HttpServletRequest request, Member member) {
 		// 3단계 : 일 시키기
 		memberService.regist(member);
 		
 		Message message = new Message();
-		message.setMsg("회원가입 성공");
+		message.setMsg("RestMemberController : 회원가입 실패");
 		
 		ResponseEntity entity = new ResponseEntity<Message>(message, HttpStatus.OK);
 		
 		return entity;
 	}
-	
+/*
 	@ExceptionHandler(HashException.class)
 	public ResponseEntity<Message> handle(HashException e) {
 		
 		Message message = new Message();
-		message.setMsg("회원가입 성공");
+		message.setMsg("HashException : 회원가입 실패");
 		
 		ResponseEntity entity = new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		return entity;
@@ -50,19 +52,34 @@ public class RestMemberController {
 	public ResponseEntity<Message> handle(EmailException e) {
 		
 		Message message = new Message();
-		message.setMsg("회원가입 성공");
+		message.setMsg("EmailException : 회원가입 실패");
 		
 		ResponseEntity entity = new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		return entity;
 	}
-	
+
 	@ExceptionHandler(MemberException.class)
 	public ResponseEntity<Message> handle(MemberException e) {
 		
 		Message message = new Message();
-		message.setMsg("회원가입 성공");
+		message.setMsg("MemberException : 회원가입 실패");
+
+		ResponseEntity entity = new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+		return entity;
+	}
+*/
+	
+	/*
+	// @ExceptionHandler(MemberException.class)
+	@ExceptionHandler(value= {MemberException.class, EmailException.class, HashException.class})
+	public ResponseEntity<Message> handle(RuntimeException e) {
+	// public ResponseEntity<Message> handle(MemberException e) {
+		Message message = new Message();
+		// message.setMsg("MemberException : 회원가입 실패");
+		message.setMsg(e.getMessage());
 		
 		ResponseEntity entity = new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		return entity;
 	}
+	 */
 }
