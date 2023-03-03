@@ -45,7 +45,7 @@ public class AdminLoginCheckAdvice {
 		if(
 				uri.equals("/admin/loginform") || // 로그인 폼 요청시 제외
 				uri.equals("/admin/rest/login/admin") || // 비동기 로그인 요청시 제외
-				uri.equals("/admin/login") // 동기방식으로 로그인 요청이 들어올 때 제외				
+				uri.equals("/admin/login") // 동기방식으로 로그인 요청이 들어올 때 제외						
 				) {
 			result = joinPoint.proceed(); // 여기서 proceed는 주로 동생 컨트롤러들의 메서드 = 반환형을 받아준다
 		} else {

@@ -36,6 +36,9 @@ public class RestProductController {
 	//상품 등록 요청 처리
 	@RequestMapping(value="/product", method=RequestMethod.POST)
 	public ResponseEntity<Message> regist(Product product, HttpServletRequest request) {
+		
+		logger.info("Product is "+product);
+		
 		//웹환경과 관련된 코드 이므로, 컨트롤러의 책임이다!!
 		//왜?? 모델은 중립적이니깐...관심도없다
 		ServletContext application=request.getSession().getServletContext();

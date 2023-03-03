@@ -2,6 +2,8 @@ package com.edu.springshop.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,7 @@ public class ProductController {
 	
 	
 	@GetMapping("/product/registform")
-	public ModelAndView getForm() {
+	public ModelAndView getForm(HttpServletRequest request) {
 		
 		// 3단계 일시키기
 		List categoryList = categoryService.selectAll();
@@ -36,7 +38,7 @@ public class ProductController {
 		return mav;
 	}
 	@GetMapping("/product/list") // 비동기가 아니니까 ModelAndView
-	public ModelAndView getList() {
+	public ModelAndView getList(HttpServletRequest request) {
 		// 3단계 : 일 시키기
 		List productList = productService.selectAll();
 				
@@ -48,7 +50,7 @@ public class ProductController {
 	}
 	// 상세보기 요청
 	@GetMapping("/product/detail")
-	public ModelAndView getDetail(int product_idx) {
+	public ModelAndView getDetail(int product_idx,HttpServletRequest request) {
 		// 3단계 : 카테고리 목록 가져오기
 		List categoryList = categoryService.selectAll();
 		Product product = productService.select(product_idx);		
