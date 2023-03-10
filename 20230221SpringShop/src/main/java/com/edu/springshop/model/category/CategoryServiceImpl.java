@@ -13,7 +13,7 @@ import com.edu.springshop.exception.CategoryException;
 public class CategoryServiceImpl implements CategoryService{
 	
 	@Autowired
-	@Qualifier("mybatisCategoryDAO")
+	// @Qualifier("mybatisCategoryDAO")
 	private CategoryDAO categoryDAO; //느슨하게 보유...
 	
 	public List selectAll() {
