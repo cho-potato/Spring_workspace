@@ -37,9 +37,8 @@
 					    </div>
 	
 					    <button type="button" class="btn btn-success" id="bt_google">Google	로그인</button>
-					    <button type="button" class="btn btn-success" id="bt_googleauth">Google	인증</button>
-					    <button type="button" class="btn btn-success" id="bt_naver">Naver		로그인</button>
 					    <button type="button" class="btn btn-success" id="bt_kakao">Kakao		로그인</button>
+					    <button type="button" class="btn btn-success" id="bt_naver">Naver		로그인</button>
 					    <button type="button" class="btn btn-success" id="bt_login">로그인</button>
 					    <button type="button" class="btn btn-primary" id="bt_regist">신규가입</button>
 					 </form>
@@ -72,22 +71,28 @@ function regist(){
 	$("#form1").submit();
 }
 
-$(function(){
-	$("#bt_googleauth").click(function() {
-		location.href="<%=request.getAttribute("url")%>";
+function gotoAuthForm(sns) {
+	$.ajax({
+		url : "/rest/member/authform/"+sns,
+		type : "GET",
+		success : function(result, status, xhr) {
+			console.log("인증주소는", result.msg);
+			location.href=result.msg; // 노출시키지 않기 위해 서버에서 받아오자
+		}
 	});
+}
+$(function(){
 	$("#bt_google").click(function(){
-		location.href="/member/authform/google";
-		/*
-		$.ajax({
-			url:"/member/authform/google",
-			type:"GET",
-			success:function(result, status, xhr) {
-				console.log(result.msg);
-				location.href=result.msg; // 인증화면 주소를 요청
-			}
-		});
-		*/
+		// SNS사업자가 미리 만들어 놓은 인증화면 주소를 요청해야 한다
+		// 따라서 주소 및 파라미터명은 이미 정해져 있다
+		// 구글 개발자 사이트에 공시되어 있음
+		gotoAuthForm("google");
+	});
+	$("#bt_kakao").click(function(){
+		gotoAuthForm("kakao");
+	});
+	$("#bt_naver").click(function(){
+		gotoAuthForm("naver");
 	});
 });
 

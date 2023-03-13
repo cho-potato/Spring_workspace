@@ -10,16 +10,14 @@ import lombok.Data;
 // 필수는 아니지만, URL과 파라미터가 상당히 복잡하고 길기 때문에 이 클래스를 정의해놓으면
 // 링크를 쉽게 관리할 수 있다(by zino)
 @Data
-public class GoogleLogin {
+public class KakaoLogin {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// 아래 데이터는 서블릿이 메모리에 올라올 때 우루루 올라올 예정
 	private String endpoint;
 	private String client_id;
-	private String client_secret;
 	private String redirect_uri;
 	private String response_type;
-	private String scope;
 	
 	// 토큰을 위한 변수
 	private String token_request_url;
@@ -34,7 +32,6 @@ public class GoogleLogin {
 		sb.append(endpoint+"?client_id="+client_id);
 		sb.append("&redirect_uri="+redirect_uri);
 		sb.append("&response_type="+response_type);
-		sb.append("&scope="+scope);
 		
 		return sb.toString();
 	}

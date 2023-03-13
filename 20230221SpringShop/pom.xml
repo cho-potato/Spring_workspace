@@ -117,11 +117,19 @@
 		<version>4.3.30.RELEASE</version>
 	</dependency>
 	
+<!-- 더이상 지원하지 않기 때문에 회원정보를 가져오는 과정에서 403에러 발생
 	<dependency>
 		<groupId>org.springframework.social</groupId>
 		<artifactId>spring-social-google</artifactId>
 		<version>1.0.0.RELEASE</version>
-	</dependency>
+	</dependency> 
+-->
+
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.32.1</version>
+		</dependency>		
 		
 		<!-- AspectJ -->
 		<dependency>
