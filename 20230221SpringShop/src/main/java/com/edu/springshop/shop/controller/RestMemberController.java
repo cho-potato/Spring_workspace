@@ -14,6 +14,7 @@ import com.edu.springshop.domain.Member;
 import com.edu.springshop.model.member.MemberService;
 import com.edu.springshop.sns.GoogleLogin;
 import com.edu.springshop.sns.KakaoLogin;
+import com.edu.springshop.sns.NaverLogin;
 import com.edu.springshop.util.Message;
 
 @RestController
@@ -27,6 +28,8 @@ public class RestMemberController {
 	private GoogleLogin googleLogin;
 	@Autowired
 	private KakaoLogin kakaoLogin;
+	@Autowired
+	private NaverLogin naverLogin;
 
 	
 	// 회원가입 요청처리
@@ -66,6 +69,22 @@ public class RestMemberController {
 		
 		// 사용자가 보게 될 인증화면에 대한 주소 구하기
 		String url = kakaoLogin.getGrantUrl(); // 인증 화면으로 가기 위한 링크 주소 얻기
+		
+		Message message = new Message();
+		message.setMsg(url);
+		
+		ResponseEntity entity = new ResponseEntity<Message>(message, HttpStatus.OK);
+		
+		return entity;
+	} 
+	
+	// 로그인 폼에서 사용할 SNS 인증 화면의 링크 주소 요청을 처리
+	// 카카오 로그인  (사용자가 보게 될) 인증화면 요청 처리
+	@GetMapping("/member/authform/naver")
+	public ResponseEntity<Message> getNaverUrl(HttpServletRequest request, Member member) {
+		
+		// 사용자가 보게 될 인증화면에 대한 주소 구하기
+		String url = naverLogin.getGrantUrl(); // 인증 화면으로 가기 위한 링크 주소 얻기
 		
 		Message message = new Message();
 		message.setMsg(url);

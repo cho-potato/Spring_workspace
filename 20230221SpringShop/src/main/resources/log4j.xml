@@ -9,7 +9,7 @@
 	해결 : 로거를 이용한다
 	-> 로거를 이용하게 되면 개발이 끝난 후 해달 로거를 주석으로 막는게 아니라 설정으로 조절할 수 있다
 	
-	로거 레벨 ) 아래로갈 갈수로 심각 
+	로거 레벨 ) 아래로 갈수로 심각 
 	TRACE
 	DEBUG
 	INFO
@@ -17,8 +17,7 @@
 	ERROR
 	FATAL
 	
-	
-	ex: info 위까지만 찍어 하면
+
 	
 	
 	
@@ -34,14 +33,13 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<!-- 
+<!-- 	
 	<logger name="com.edu.springshop">
 		<level value="trace" />
 	</logger>
-	 -->
-
+ -->	
 	<!-- 3rdparty Loggers -->
-	<!-- 
+	<!-- 	
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
@@ -53,11 +51,10 @@
 	<logger name="org.springframework.context">
 		<level value="info" />
 	</logger>
-
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
- -->
+ 	-->
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
