@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+// 쿠키에 유효기간을 포함하여 값 넣기
+function setCookie(cname, cvalue, exdays) { // 인수가 왜 세개일까 
+	  const d = new Date();
+	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	  let expires = "expires="+ d.toUTCString();
+	  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+	
+//'name=zino;
+// _ga=GA1.2.1195582134.1664852536;
+// __gsas=ID=4a105b56bfbc8abb:T=1664854065:S=ALNI_Mbs0StFarJWLrlW-2kBiURHxqC8MA;
+
+
+// 쿠키의 변수명으로 해당 값 추출하기
+getCookie("name"); // name=zino 에서 변수명인 name을 넣으면 zino 반환
+let v = getCookie(" _ga");
+/*
+function getCookie(cookiename) {
+	  let name = cookiename + "="; // 검색어를 만듦
+//	  let name = name + "="; 위에꺼 예시, 
+
+	  let decodedCookie = decodeURIComponent(document.cookie); // 쿠키값의 평문화
+	  let ca = decodedCookie.split(';'); // 세미콜론을 기준으로 찢어버림, 위 세 개가 예시
+	  for(let i = 0; i <ca.length; i++) { // 집단마다 (세미콜론으로 찢은 것 마다) 접근
+	    let c = ca[i];
+	  // 공백을 따져보는 while문
+	    while (c.charAt(0) == ' ') { // 만약 공백이 있다면
+	      c = c.substring(1); // 문자열 전체를 말함. 
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+
+	  return "";
+	}
+*/
+// 실습해보자 
+function getCookie(cname) {
+	  let name = cname + "="; // 검색어로 사용할 변수명
+	  console.log("검색에 사용된 네임값은", name);
+	  
+	  //웹 전송시 보안을 위해 인코딩된 데이터가 있다면 다시 평문으로 돌려놓기
+	  let decodedCookie = decodeURIComponent(document.cookie);
+	  console.log("평문으로 사용된 값은", decodedCookie);
+	  
+	  let ca = decodedCookie.split(';'); // 세미콜론을 기준으로 ㄷ문자열을 분리하여 배열로 변환
+	  console.log("생성된 쿠키 수는", ca.length);
+	  
+	  for(let i = 0; i <ca.length; i++) {
+	    let c = ca[i];
+	    while (c.charAt(0) == ' ') { // 분리된 데이터들에 공뱍아 있다면 공백제거
+	      c = c.substring(1); // 공백을 제외한 나머지를 가져옴, substring의 두번째 매개변수를 안적으면 끝까지 가쟈ㅑ
+	    }
+	    // 검색어의 짝이 되는거 구하기
+	    if (c.indexOf(name) == 0) { // name이라는 변수와 =라는 문자열이 존재하니 name=
+	      return c.substring(name.length, c.length); // 값만 추출하는 코드, 문자열을 추출하는데 어디
+	    }
+	  }
+	  return "";
+	}
+</script>
+<body>
+
+</body>
+</html>
