@@ -159,7 +159,7 @@
 		const imagebox={
 			template:`
 				<div class="box-style">
-					<div>X</div>
+					<div v-on:click="del(json)">X</div>
 					<img :src="json.binary" />
 				</div>
 			`,
@@ -168,6 +168,21 @@
 				return{
 					json:this.obj
 				};
+			},
+			methods:{
+				del(json){
+					alert("?????");
+					console.log("선택한 이미지에 대한 json은", json);
+					
+					// 해당 선택한 이미지에 대하 json이 배열에 있는지
+					// 없으면 언제나 -1, 있으면 -1이 아닌 수(즉, 발견된 번째) 
+					let index=app1.imageList.indexOf(json);
+					console.log("index is", index);
+					
+					// Vue는 데이터만 지워도 UI가 반응을 보인다(자동으로 동기화) -> bind 되어 있다
+					app1.imageList.splice(index, 1);
+					
+				}
 			}
 		};
 		

@@ -38,8 +38,12 @@
     -->
     <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
 
+	<!-- AWS -->
+	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="20" maxIdle="10" maxWait="3000" name="jdbc/oracle" password="1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="jsp"/>
+
 	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="20" maxIdle="10" maxWait="3000" name="jdbc/oracle" password="1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="jsp"/>
 	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="3000" name="jdbc/mysql" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/jspshop?characterEncoding=utf8" username="root"/>
+
 
   </GlobalNamingResources>
 
@@ -156,7 +160,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="20230221SpringShop" path="/springshop" reloadable="true" source="org.eclipse.jst.jee.server:20230221SpringShop"/><Context docBase="C:\team601\team_6011" path="/" reloadable="true"/></Host>
+      <Context docBase="20230221SpringShop" path="/" reloadable="true" source="org.eclipse.jst.jee.server:20230221SpringShop"/></Host>
     </Engine>
   </Service>
 </Server>

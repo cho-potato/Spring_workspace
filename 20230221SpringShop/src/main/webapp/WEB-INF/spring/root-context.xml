@@ -24,7 +24,7 @@
 	<!-- 
 		트랜잭션 메니저 선택 (스프링이 지원하는...) 
 		사용기술: jdbc 			- DataSourceTransasctionManager 
-		사용기술: mybatis 	- DataSourceTransasctionManager
+		사용기술: mybatis 		- DataSourceTransasctionManager
 		사용기술: hibernate 	- HibernateTransasctionManager
 	-->
 	<beans:bean 
